@@ -1,0 +1,32 @@
+package main
+
+import (
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+)
+
+func commandMap(config *config) error{
+	fmt.Println("Displays all the locations where Pokemons are found")
+	// fmt.Println("help: Displays a help message\nexit: Exit the Pokedex")
+	// os.Exit(0)
+	url:= config.Next
+	if url == ""{
+		url = "https://pokeapi.co/api/v2/location-area?limit=20"
+	}
+	req, err:= http.Get(url)
+	if err != nil{
+		return err
+	}
+	body, err := io.ReadAll(req.Body)
+	defer req.Body.Close()
+	if req.StatusCode > 299 {
+		log.Fatalf("Response failed with status code: %d and\nbody: %s\n", req.StatusCode, body)
+	}
+	if err!=nil{
+		return err
+	}
+	
+	return  nil
+}
