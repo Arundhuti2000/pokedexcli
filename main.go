@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+
+	"github.com/Arundhuti2000/pokedexcli/internal/commands"
 ) 
 
 func main(){
@@ -15,10 +17,10 @@ func main(){
 			break 
 		}
 		text:=scanner.Text()
-		inputstring:=cleanInput(text)
+		inputstring:=commands.CleanInput(text)
 		if len(inputstring) > 0 {
-			if  value, ok := mapcommands[inputstring[0]]; ok{
-				value.callback()
+			if  value, ok := commands.Mapcommands[inputstring[0]]; ok{
+				value.Callback()
 			} else{
 				fmt.Println("Unknown command")
 			}

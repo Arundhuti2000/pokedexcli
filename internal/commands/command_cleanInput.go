@@ -1,8 +1,8 @@
-package main
+package commands
 
 import "strings"
 
-func cleanInput(text string) []string{
+func CleanInput(text string) []string{
 	textLower:= strings.ToLower(text)
 	words:= strings.Fields(textLower)
 	return words

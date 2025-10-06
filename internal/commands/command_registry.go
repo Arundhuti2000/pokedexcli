@@ -1,9 +1,9 @@
-package main
+package commands
 
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	Callback    func() error
 }
 
 type config struct {
@@ -25,25 +25,25 @@ type Location_Areas struct {
 // package-level configuration instance used by commands
 var cfg = config{}
 
-var mapcommands = map[string]cliCommand{
+var Mapcommands = map[string]cliCommand{
 	"exit": {
 		name:        "exit",
 		description: "Exit the Pokedex (Usage: exit)",
-		callback:    func() error { return commandExit(&cfg) },
+		Callback:    func() error { return commandExit(&cfg) },
 	},
 	"help": {
 		name:        "help",
 		description: "Displays a help message (Usage: help)",
-		callback:    func() error { return commandHelp(&cfg) },
+		Callback:    func() error { return commandHelp(&cfg) },
 	},
 	"map": {
 		name:        "map",
 		description: "Displays next 20 location areas (Usage: map)",
-		callback:    func() error { return commandMap(&cfg) },
+		Callback:    func() error { return commandMap(&cfg) },
 	},
 	"mapb": {
 		name:        "mapb",
 		description: "Displays previous 20 location areas (Usage: mapb)",
-		callback:    func() error { return commandMapb(&cfg) },
+		Callback:    func() error { return commandMapb(&cfg) },
 	},
 }
