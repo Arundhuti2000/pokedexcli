@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -24,9 +25,50 @@ func commandMap(config *config) error{
 	if req.StatusCode > 299 {
 		log.Fatalf("Response failed with status code: %d and\nbody: %s\n", req.StatusCode, body)
 	}
+	var location_areas Location_Areas
+	err = json.Unmarshal(body, &location_areas)
 	if err!=nil{
 		return err
 	}
-	
+	for _, area := range location_areas.Results {
+		fmt.Println(area.Name)
+	}
+
+	config.Next = location_areas.Next
+	config.Previous = location_areas.Previous
+	return  nil
+}
+
+func commandMapb(config *config) error{
+	fmt.Println("Displays the previous 20 locations where Pokemons are found")
+	// fmt.Println("help: Displays a help message\nexit: Exit the Pokedex")
+	// os.Exit(0)
+	url:= config.Previous
+	if url == ""{
+		url = "https://pokeapi.co/api/v2/location-area?limit=20"
+	}
+	req, err:= http.Get(url)
+	if err != nil{
+		return err
+	}
+	body, err := io.ReadAll(req.Body)
+	if err!=nil{
+		return err
+	}
+	defer req.Body.Close()
+	if req.StatusCode > 299 {
+		log.Fatalf("Response failed with status code: %d and\nbody: %s\n", req.StatusCode, body)
+	}
+	var location_areas Location_Areas
+	err = json.Unmarshal(body, &location_areas)
+	if err!=nil{
+		return err
+	}
+	for _, area := range location_areas.Results {
+		fmt.Println(area.Name)
+	}
+
+	config.Next = location_areas.Next
+	config.Previous = location_areas.Previous
 	return  nil
 }

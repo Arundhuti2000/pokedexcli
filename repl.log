@@ -2,4 +2,7 @@ Pokedex > Welcome to the Pokedex!
 Usage:
 help: Displays a help message
 exit: Exit the Pokedex
+map: Displays the list of 20 Locations were Pokemons are found
+mapb: Displays the list of 20 Previous Locations were Pokemons are found
+exit: Exit the Pokedex
 Pokedex > Closing the Pokedex... Goodbye!
