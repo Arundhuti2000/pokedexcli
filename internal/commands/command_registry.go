@@ -20,10 +20,11 @@ type Location_Areas struct {
 	}
 }
 
+var cfg = config{}
+
 // const url = "https://pokeapi.co/api/v2/location-area?offset=20&limit=20"
 
 // package-level configuration instance used by commands
-var cfg = config{}
 
 var Mapcommands = map[string]cliCommand{
 	"exit": {
