@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Arundhuti2000/pokedexcli/internal/client"
 	"github.com/Arundhuti2000/pokedexcli/internal/commands"
 ) 
 
@@ -18,7 +19,7 @@ func main(){
 		text:=scanner.Text()
 		inputstring:=commands.CleanInput(text)
 		if len(inputstring) > 0 {
-			if  value, ok := commands.Mapcommands[inputstring[0]]; ok{
+			if  value, ok := client.Mapcommands[inputstring[0]]; ok{
 				if inputstring[0] == "explore" && len(inputstring) > 1 {
 					value.CallbackWithArg(inputstring[1])
 				} else if value.Callback != nil {

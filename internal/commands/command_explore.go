@@ -16,7 +16,7 @@ func CommandExplore(config *registry.Config, location string) error{
 	// if url == ""{
 		
 	// }
-	url := "https://pokeapi.co/api/v2/location-area/"+ location +"?limit=20"
+	url := "https://pokeapi.co/api/v2/location-area/"+ location 
 	pokecache, ok:= config.PokeCache.Get(url)
 	if !ok{
 		req, err:= http.Get(url)
