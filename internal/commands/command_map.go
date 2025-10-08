@@ -16,11 +16,18 @@ func commandMap(config *config) error{
 	if url == ""{
 		url = "https://pokeapi.co/api/v2/location-area?limit=20"
 	}
+	pokecache, ok:= config.PokeCache.Get(url)
+	if !ok{
+		
+	}
 	req, err:= http.Get(url)
 	if err != nil{
 		return err
 	}
 	body, err := io.ReadAll(req.Body)
+	if err!=nil{
+		return err
+	}
 	defer req.Body.Close()
 	if req.StatusCode > 299 {
 		log.Fatalf("Response failed with status code: %d and\nbody: %s\n", req.StatusCode, body)

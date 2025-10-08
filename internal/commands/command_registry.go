@@ -1,5 +1,7 @@
 package commands
 
+import "github.com/Arundhuti2000/pokedexcli/internal/pokecache"
+
 type cliCommand struct {
 	name        string
 	description string
@@ -9,6 +11,7 @@ type cliCommand struct {
 type config struct {
 	Next     string
 	Previous string
+	PokeCache    pokecache.Cache
 }
 type Location_Areas struct {
 	Count    int    `json:"count"`

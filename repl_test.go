@@ -2,6 +2,8 @@ package main
 
 import (
 	"testing"
+
+	"github.com/Arundhuti2000/pokedexcli/internal/commands"
 )
 
 func TestCleanInput(t *testing.T) {
@@ -19,7 +21,7 @@ func TestCleanInput(t *testing.T) {
 		},
 	}
 	for _, c := range cases {
-	actual := cleanInput(c.input)
+	actual := commands.CleanInput(c.input)
 	// Check the length of the actual slice against the expected slice
 	// if they don't match, use t.Errorf to print an error message
 	// and fail the test
