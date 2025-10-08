@@ -13,7 +13,7 @@ import (
 func CommandCatch(config *registry.Config, name string) error{
 	// fmt.Println("explore: Displays the list of pokemon found in that area")
 
-	url := "https://pokeapi.co/api/v2/location-area/"+ location 
+	url := "https://pokeapi.co/api/v2/location-area/"+ name 
 	var body []byte
 	pokecache, ok:= config.PokeCache.Get(url)
 	
@@ -58,6 +58,5 @@ func CommandCatch(config *registry.Config, name string) error{
 			fmt.Println(pokemon_encounter.Pokemon.Name)
 		}
 	}
-	// os.Exit(0)
 	return  nil
 }
