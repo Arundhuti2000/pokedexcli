@@ -8,7 +8,7 @@ import (
 	"github.com/Arundhuti2000/pokedexcli/internal/registry"
 )
 var cfg = registry.Config{
-	PokeCache: *pokecache.NewCache(5 * time.Second),
+	PokeCache: *pokecache.NewCache(10 * time.Minute),
 }
 
 // const url = "https://pokeapi.co/api/v2/location-area?offset=20&limit=20"
@@ -40,5 +40,10 @@ var Mapcommands = map[string]registry.CliCommand{
 		Name: "explore",
 		Description: "list of all the Pokémon located in an area",
 		CallbackWithArg: func(location string) error { return commands.CommandExplore(&cfg, location) },
+	},
+	"catch": {
+		Name: "catch",
+		Description: "Catch a Pokemon",
+		CallbackWithArg: func(name string) error { return commands.CommandCatch(&cfg,name) },
 	},
 }

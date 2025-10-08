@@ -10,7 +10,7 @@ import (
 	"github.com/Arundhuti2000/pokedexcli/internal/registry"
 )
 
-func CommandExplore(config *registry.Config, location string) error{
+func CommandCatch(config *registry.Config, name string) error{
 	// fmt.Println("explore: Displays the list of pokemon found in that area")
 
 	url := "https://pokeapi.co/api/v2/location-area/"+ location 

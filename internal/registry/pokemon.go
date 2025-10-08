@@ -11,17 +11,57 @@ package registry
 // }
 
 type Pokemon_by_location_area struct {
-	Encounter_method_rate []byte             `json:"encounter_method_rate"`
+	Encounter_method_rate []struct {
+		EncounterMethod struct {
+			Name string `json:"name"`
+			Url  string `json:"url"`
+		} `json:"encounter_method"`
+		VersionDetails []struct {
+			Rate    int `json:"rate"`
+			Version struct {
+				Name string `json:"name"`
+				Url  string `json:"url"`
+			} `json:"version"`
+		} `json:"version_details"`
+	} `json:"encounter_method_rates"`
 	Game_index            int                `json:"game_index"`
 	Id                    int                `json:"id"`
-	Location              string             `json:"location"`
+	Location              struct{
+		Name string `json:"name"`
+		Url  string `json:"url"`
+	}             `json:"location"`
 	Name                  string             `json:"name"`
-	Names                 string             `json:"names"`
-	Pokemon_encounters    []struct {
-		Pokemon struct{
+	Names []struct {
+		Language struct {
 			Name string `json:"name"`
-			PokeUrl  string `json:"url"`
+			Url  string `json:"url"`
+		} `json:"language"`
+		Name string `json:"name"`
+	} `json:"names"`
+	Pokemon_encounters []struct {
+		Pokemon struct {
+			Name string `json:"name"`
+			Url  string `json:"url"`
 		} `json:"pokemon"`
-		VersionDetails []byte `json:"version_details"`
+		VersionDetails []struct {
+			EncounterDetails []struct {
+				Chance          int `json:"chance"`
+				ConditionValues []struct {
+					Name string `json:"name"`
+					Url  string `json:"url"`
+				} `json:"condition_values"`
+				MaxLevel int `json:"max_level"`
+				Method   struct {
+					Name string `json:"name"`
+					Url  string `json:"url"`
+				} `json:"method"`
+				MinLevel int `json:"min_level"`
+			} `json:"encounter_details"`
+			MaxChance int `json:"max_chance"`
+			Version   struct {
+				Name string `json:"name"`
+				Url  string `json:"url"`
+			} `json:"version"`
+		} `json:"version_details"`
 	} `json:"pokemon_encounters"`
 }

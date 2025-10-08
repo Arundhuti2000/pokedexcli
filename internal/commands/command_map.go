@@ -20,6 +20,7 @@ func CommandMap(config *registry.Config) error{
 	}
 	pokecache, ok:= config.PokeCache.Get(url)
 	if !ok{
+		fmt.Println("Cache miss - fetching from API from map")
 		req, err:= http.Get(url)
 		if err != nil{
 			return err
@@ -45,6 +46,7 @@ func CommandMap(config *registry.Config) error{
 		config.Next = location_areas.Next
 		config.Previous = location_areas.Previous
 	}else{
+		fmt.Println("Cache Hit")
 		var location_areas registry.Location_Areas
 		err := json.Unmarshal(pokecache, &location_areas)
 		if err != nil {
@@ -70,6 +72,7 @@ func CommandMapb(config *registry.Config) error{
 	}
 	pokecache, ok:= config.PokeCache.Get(url)
 	if !ok{
+		fmt.Println("Cache miss - fetching from API from map")
 		req, err:= http.Get(url)
 		if err != nil{
 			return err
@@ -95,6 +98,7 @@ func CommandMapb(config *registry.Config) error{
 		config.Next = location_areas.Next
 		config.Previous = location_areas.Previous
 	} else{
+		fmt.Println("Cache Hit")
 		var location_areas registry.Location_Areas
 		err := json.Unmarshal(pokecache, &location_areas)
 		if err != nil {
