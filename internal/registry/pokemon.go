@@ -1,4 +1,4 @@
-package main
+package registry
 
 // type pokemon struct {
 // 	Name    string

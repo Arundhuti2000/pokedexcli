@@ -1,8 +1,12 @@
 package commands
 
-import "fmt"
+import (
+	"fmt"
 
-func commandHelp(config *config) error{
+	"github.com/Arundhuti2000/pokedexcli/internal/registry"
+)
+
+func CommandHelp(config *registry.Config) error{
 	fmt.Println("Welcome to the Pokedex!\nUsage:")
 	fmt.Println("help: Displays a help message\nexit: Exit the Pokedex")
 	fmt.Println("map: Displays the list of 20 Locations were Pokemons are found")

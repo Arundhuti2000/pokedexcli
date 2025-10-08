@@ -6,9 +6,11 @@ import (
 	"io"
 	"log"
 	"net/http"
+
+	"github.com/Arundhuti2000/pokedexcli/internal/registry"
 )
 
-func commandMap(config *config) error{
+func CommandMap(config *registry.Config) error{
 	fmt.Println("Displays all the locations where Pokemons are found")
 	// fmt.Println("help: Displays a help message\nexit: Exit the Pokedex")
 	// os.Exit(0)
@@ -31,7 +33,7 @@ func commandMap(config *config) error{
 		if req.StatusCode > 299 {
 			log.Fatalf("Response failed with status code: %d and\nbody: %s\n", req.StatusCode, body)
 		}
-		var location_areas Location_Areas
+		var location_areas registry.Location_Areas
 		err = json.Unmarshal(body, &location_areas)
 		if err!=nil{
 			return err
@@ -43,7 +45,7 @@ func commandMap(config *config) error{
 		config.Next = location_areas.Next
 		config.Previous = location_areas.Previous
 	}else{
-		var location_areas Location_Areas
+		var location_areas registry.Location_Areas
 		err := json.Unmarshal(pokecache, &location_areas)
 		if err != nil {
 			return err
@@ -58,7 +60,7 @@ func commandMap(config *config) error{
 	return  nil
 }
 
-func commandMapb(config *config) error{
+func CommandMapb(config *registry.Config) error{
 	fmt.Println("Displays the previous 20 locations where Pokemons are found")
 	// fmt.Println("help: Displays a help message\nexit: Exit the Pokedex")
 	// os.Exit(0)
@@ -81,7 +83,7 @@ func commandMapb(config *config) error{
 		if req.StatusCode > 299 {
 			log.Fatalf("Response failed with status code: %d and\nbody: %s\n", req.StatusCode, body)
 		}
-		var location_areas Location_Areas
+		var location_areas registry.Location_Areas
 		err = json.Unmarshal(body, &location_areas)
 		if err!=nil{
 			return err
@@ -93,7 +95,7 @@ func commandMapb(config *config) error{
 		config.Next = location_areas.Next
 		config.Previous = location_areas.Previous
 	} else{
-		var location_areas Location_Areas
+		var location_areas registry.Location_Areas
 		err := json.Unmarshal(pokecache, &location_areas)
 		if err != nil {
 			return err
