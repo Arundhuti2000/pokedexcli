@@ -30,7 +30,7 @@ type Location_Areas struct {
 var cfg = config{
 	PokeCache: *pokecache.NewCache(5 * time.Second),
 }
-
+var location_area = Location_Areas{}
 // const url = "https://pokeapi.co/api/v2/location-area?offset=20&limit=20"
 
 // package-level configuration instance used by commands
@@ -60,5 +60,5 @@ var Mapcommands = map[string]cliCommand{
 		name: "explore",
 		description: "list of all the Pokémon located in an area",
 		Callback: func() error { return commandExplore(&cfg) },
-	}
+	},
 }
