@@ -18,7 +18,7 @@ type Pokemon_by_location_area struct {
 	Name                  string             `json:"name"`
 	Names                 string             `json:"names"`
 	Pokemon_encounters    []struct{
-		Pokemon []struct{
+		Pokemon struct{
 			Name string `json:"name"`
 			PokeUrl  string `json:"url"`
 		}

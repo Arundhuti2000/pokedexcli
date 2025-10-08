@@ -38,10 +38,7 @@ func CommandExplore(config *registry.Config, location string) error{
 			return err
 		}
 		for _, pokemon_encounter := range pokemon_by_location_area.Pokemon_encounters {
-			for _, pokemon := range pokemon_encounter.Pokemon{
-				fmt.Println(pokemon.Name)
-			}
-			
+			fmt.Println(pokemon_encounter.Pokemon.Name)
 		}
 		
 	} else{
@@ -51,11 +48,8 @@ func CommandExplore(config *registry.Config, location string) error{
 			return err
 		}
 		for _, pokemon_encounter := range pokemon_by_location_area.Pokemon_encounters {
-			for _, pokemon := range pokemon_encounter.Pokemon{
-				fmt.Println(pokemon.Name)
-			}
-			
-		} 
+			fmt.Println(pokemon_encounter.Pokemon.Name)
+		}
 	}
 	// os.Exit(0)
 	return  nil
