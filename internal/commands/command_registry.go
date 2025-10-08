@@ -1,6 +1,10 @@
 package commands
 
-import "github.com/Arundhuti2000/pokedexcli/internal/pokecache"
+import (
+	"time"
+
+	"github.com/Arundhuti2000/pokedexcli/internal/pokecache"
+)
 
 type cliCommand struct {
 	name        string
@@ -9,9 +13,9 @@ type cliCommand struct {
 }
 
 type config struct {
-	Next     string
-	Previous string
-	PokeCache    pokecache.Cache
+	Next      string
+	Previous  string
+	PokeCache pokecache.Cache
 }
 type Location_Areas struct {
 	Count    int    `json:"count"`
@@ -23,7 +27,9 @@ type Location_Areas struct {
 	}
 }
 
-var cfg = config{}
+var cfg = config{
+	PokeCache: *pokecache.NewCache(5 * time.Second),
+}
 
 // const url = "https://pokeapi.co/api/v2/location-area?offset=20&limit=20"
 
@@ -50,4 +56,9 @@ var Mapcommands = map[string]cliCommand{
 		description: "Displays previous 20 location areas (Usage: mapb)",
 		Callback:    func() error { return commandMapb(&cfg) },
 	},
+	"explore": {
+		name: "explore",
+		description: "list of all the Pokémon located in an area",
+		Callback: func() error { return commandExplore(&cfg) },
+	}
 }
