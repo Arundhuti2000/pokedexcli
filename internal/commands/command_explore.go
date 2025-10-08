@@ -12,10 +12,11 @@ import (
 
 func CommandExplore(config *registry.Config, location string) error{
 	fmt.Println("explore: Displays the list of pokemon found in that area\tUsage: explore <location-area-name>")
-	url:= config.Next
-	if url == ""{
-		url = "https://pokeapi.co/api/v2/location-area/"+ location +"?limit=20"
-	}
+	// url:= config.Next
+	// if url == ""{
+		
+	// }
+	url := "https://pokeapi.co/api/v2/location-area/"+ location +"?limit=20"
 	pokecache, ok:= config.PokeCache.Get(url)
 	if !ok{
 		req, err:= http.Get(url)
@@ -31,14 +32,30 @@ func CommandExplore(config *registry.Config, location string) error{
 		if req.StatusCode > 299 {
 			log.Fatalf("Response failed with status code: %d and\nbody: %s\n", req.StatusCode, body)
 		}
-		var Pokemon_by_location_area Pokemon_by_location_area
-		err = json.Unmarshal(body, &location_areas)
+		var pokemon_by_location_area registry.Pokemon_by_location_area
+		err = json.Unmarshal(body, &pokemon_by_location_area)
 		if err!=nil{
 			return err
 		}
-		for _, area := range location_areas.Results {
-			fmt.Println(area.Name)
+		for _, pokemon_encounter := range pokemon_by_location_area.Pokemon_encounters {
+			for _, pokemon := range pokemon_encounter.Pokemon{
+				fmt.Println(pokemon.Name)
+			}
+			
 		}
+		
+	} else{
+		var pokemon_by_location_area registry.Pokemon_by_location_area
+		err := json.Unmarshal(pokecache, &pokemon_by_location_area)
+		if err!=nil{
+			return err
+		}
+		for _, pokemon_encounter := range pokemon_by_location_area.Pokemon_encounters {
+			for _, pokemon := range pokemon_encounter.Pokemon{
+				fmt.Println(pokemon.Name)
+			}
+			
+		} 
 	}
 	// os.Exit(0)
 	return  nil
