@@ -47,4 +47,14 @@ var Mapcommands = map[string]registry.CliCommand{
 		Description: "Catch a Pokemon",
 		CallbackWithArg: func(name string) error { return commands.CommandCatch(&cfg, name) },
 	},
+	"inspect": {
+		Name: "inspect",
+		Description: "Inspect a Pokemon",
+		CallbackWithArg: func(name string) error { return commands.CommandInspect(&cfg, name) },
+	},
+	"pokedex": {
+		Name: "pokedex",
+		Description: "Display all caught Pokemons",
+		Callback: func() error { return commands.CommandPokedex(&cfg) },
+	},
 }

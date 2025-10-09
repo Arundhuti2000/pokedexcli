@@ -24,7 +24,9 @@ func main(){
 					value.CallbackWithArg(inputstring[1])
 				}else if inputstring[0] == "catch" && len(inputstring) > 1 {
 					value.CallbackWithArg(inputstring[1])
-				} else if value.Callback != nil {
+				} else if inputstring[0] == "inspect" && len(inputstring) > 1 {
+					value.CallbackWithArg(inputstring[1])
+				}else if value.Callback != nil {
 					value.Callback()
 				} else {
 					fmt.Println("Command requires an argument")
