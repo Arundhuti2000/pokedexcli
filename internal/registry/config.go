@@ -6,4 +6,5 @@ type Config struct {
 	Next      string
 	Previous  string
 	PokeCache pokecache.Cache
+	CaughtPokemon  map[string]Pokemon
 }

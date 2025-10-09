@@ -63,6 +63,7 @@ func CommandCatch(config *registry.Config, name string) error{
 	
 	if attemptCatch(pokemon.BaseExperience) {
 		fmt.Printf("%s was caught!\n", pokemon.Name)
+		config.CaughtPokemon[pokemon.Name]=pokemon
 	} else{
 		fmt.Printf("%s escaped!\n", pokemon.Name)
 	}

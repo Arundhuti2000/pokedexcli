@@ -9,6 +9,7 @@ import (
 )
 var cfg = registry.Config{
 	PokeCache: *pokecache.NewCache(10 * time.Minute),
+	CaughtPokemon: make(map[string]registry.Pokemon),
 }
 
 // const url = "https://pokeapi.co/api/v2/location-area?offset=20&limit=20"

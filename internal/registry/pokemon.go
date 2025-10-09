@@ -13,81 +13,35 @@ type Pokemon struct {
 	Height         int    `json:"height"`
 	Id             int    `json:"id"`
 	Name           string `json:"name"`
-	// Stats          []struct {
-	// 	BaseStat int `json:"base_stat"`
-	// 	Effort   int `json:"effort"`
-	// 	Stat     struct {
-	// 		Name string `json:"name"`
-	// 		Url  string `json:"url"`
-	// 	} `json:"stat"`
-	// } `json:"stats"`
-	// Types []struct {
-	// 	Slot int `json:"slot"`
-	// 	Type struct {
-	// 		Name string `json:"name"`
-	// 		Url  string `json:"url"`
-	// 	} `json:"type"`
-	// } `json:"types"`
+	Stats          []struct {
+		BaseStat int `json:"base_stat"`
+		Effort   int `json:"effort"`
+		Stat     struct {
+			Name string `json:"name"`
+			Url  string `json:"url"`
+		} `json:"stat"`
+	} `json:"stats"`
+	Types []struct {
+		Slot int `json:"slot"`
+		Type struct {
+			Name string `json:"name"`
+			Url  string `json:"url"`
+		} `json:"type"`
+	} `json:"types"`
 	Weight int `json:"weight"`
 }
 
-// type pokemon_encounters struct {
-// 	pokemon        pokemon
-// 	versionDetails []byte
-// }
-
 type Pokemon_by_location_area struct {
-	Encounter_method_rate []struct {
-		EncounterMethod struct {
-			Name string `json:"name"`
-			Url  string `json:"url"`
-		} `json:"encounter_method"`
-		VersionDetails []struct {
-			Rate    int `json:"rate"`
-			Version struct {
-				Name string `json:"name"`
-				Url  string `json:"url"`
-			} `json:"version"`
-		} `json:"version_details"`
-	} `json:"encounter_method_rates"`
-	Game_index int `json:"game_index"`
-	Id         int `json:"id"`
-	Location   struct {
+	Id       int `json:"id"`
+	Location struct {
 		Name string `json:"name"`
 		Url  string `json:"url"`
 	} `json:"location"`
-	Name  string `json:"name"`
-	Names []struct {
-		Language struct {
-			Name string `json:"name"`
-			Url  string `json:"url"`
-		} `json:"language"`
-		Name string `json:"name"`
-	} `json:"names"`
+	Name               string `json:"name"`
 	Pokemon_encounters []struct {
 		Pokemon struct {
 			Name string `json:"name"`
 			Url  string `json:"url"`
 		} `json:"pokemon"`
-		VersionDetails []struct {
-			EncounterDetails []struct {
-				Chance          int `json:"chance"`
-				ConditionValues []struct {
-					Name string `json:"name"`
-					Url  string `json:"url"`
-				} `json:"condition_values"`
-				MaxLevel int `json:"max_level"`
-				Method   struct {
-					Name string `json:"name"`
-					Url  string `json:"url"`
-				} `json:"method"`
-				MinLevel int `json:"min_level"`
-			} `json:"encounter_details"`
-			MaxChance int `json:"max_chance"`
-			Version   struct {
-				Name string `json:"name"`
-				Url  string `json:"url"`
-			} `json:"version"`
-		} `json:"version_details"`
 	} `json:"pokemon_encounters"`
 }
