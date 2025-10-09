@@ -4,59 +4,68 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
+	"math/rand"
 	"net/http"
 
 	"github.com/Arundhuti2000/pokedexcli/internal/registry"
 )
 
-func CommandCatch(config *registry.Config, name string) error{
-	// fmt.Println("explore: Displays the list of pokemon found in that area")
+func attemptCatch(baseExperience int) bool {
+	catchThreshold := 50 + (baseExperience / 10)
+	
+	if catchThreshold > 95 {
+		catchThreshold = 95
+	}
+	
+	randomValue := rand.Intn(100)
+	
+	return randomValue >= catchThreshold
+}
 
-	url := "https://pokeapi.co/api/v2/location-area/"+ name 
+func CommandCatch(config *registry.Config, name string) error{
+	fmt.Printf("Throwing a Pokeball at %s...\n", name)
+	
+	url := "https://pokeapi.co/api/v2/pokemon/"+ name 
+	
 	var body []byte
 	pokecache, ok:= config.PokeCache.Get(url)
 	
 	if !ok{
-		fmt.Println("Cache miss - fetching from API")
 		req, err:= http.Get(url)
 		if err != nil{
-			fmt.Println("Error fetching:", err)
-			return err
-		}
-		body, err = io.ReadAll(req.Body)
-		if err!=nil{
-			fmt.Println("Error reading body:", err)
+			fmt.Println(err)
 			return err
 		}
 		defer req.Body.Close()
-		config.PokeCache.Add(url, body)
-		// fmt.Println(config)
+		
 		if req.StatusCode > 299 {
-			log.Fatalf("Response failed with status code: %d and\nbody: %s\n", req.StatusCode, body)
+			fmt.Println(err)
+			return fmt.Errorf("Response failed with status code: %d", req.StatusCode)
 		}
-		var pokemon_by_location_area registry.Pokemon_by_location_area
-		err = json.Unmarshal(body, &pokemon_by_location_area)
+		
+		body, err = io.ReadAll(req.Body)
 		if err!=nil{
-			fmt.Println("Error unmarshaling:", err)
+			fmt.Println(err)
 			return err
 		}
-		fmt.Println("Number of pokemon encounters:", len(pokemon_by_location_area.Pokemon_encounters))
-		for _, pokemon_encounter := range pokemon_by_location_area.Pokemon_encounters {
-			fmt.Println(pokemon_encounter.Pokemon.Name)
-		}
-	} else{
-		fmt.Println("Cache hit")
-		var pokemon_by_location_area registry.Pokemon_by_location_area
-		err := json.Unmarshal(pokecache, &pokemon_by_location_area)
-		if err!=nil{
-			fmt.Println("Error unmarshaling from cache:", err)
-			return err
-		}
-		fmt.Println("Number of pokemon encounters:", len(pokemon_by_location_area.Pokemon_encounters))
-		for _, pokemon_encounter := range pokemon_by_location_area.Pokemon_encounters {
-			fmt.Println(pokemon_encounter.Pokemon.Name)
-		}
+		
+		config.PokeCache.Add(url, body)
+	} else {
+		body = pokecache
 	}
-	return  nil
+	
+	var pokemon registry.Pokemon
+	err := json.Unmarshal(body, &pokemon)
+	if err!=nil{
+		fmt.Println(err)
+		return err
+	}
+	
+	if attemptCatch(pokemon.BaseExperience) {
+		fmt.Printf("%s was caught!\n", pokemon.Name)
+	} else{
+		fmt.Printf("%s escaped!\n", pokemon.Name)
+	}
+	
+	return nil
 }

@@ -22,6 +22,8 @@ func main(){
 			if  value, ok := client.Mapcommands[inputstring[0]]; ok{
 				if inputstring[0] == "explore" && len(inputstring) > 1 {
 					value.CallbackWithArg(inputstring[1])
+				}else if inputstring[0] == "catch" && len(inputstring) > 1 {
+					value.CallbackWithArg(inputstring[1])
 				} else if value.Callback != nil {
 					value.Callback()
 				} else {
