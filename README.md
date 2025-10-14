@@ -13,7 +13,7 @@ A simple command-line Pokedex I built while learning Go. It lets you explore the
 
 ## Getting Started
 
-You'll need Go 1.25.0+ installed.
+You'll need Go 1.25.0+ installed...
 
 ```bash
 git clone https://github.com/Arundhuti2000/pokedexcli.git
